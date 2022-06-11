@@ -16,41 +16,68 @@ const question = util.promisify(rl.question).bind(rl);
 const process_arguments = parseProcessArgv();
 
 const parsDirectory = (directory) => {
-  const strin = directory + ": " + "\n";
+  const strin = directory + " " + "\n";
   return `You are currently in ${strin}`;
 };
 
-const main = async (answer, directory) => {
-  let new_directory = directory || os.homedir();
+const cli_config = {
+  directory: os.homedir(),
+};
+
+const COMMAND_HANDLER = {
+  up: async (user_input, col) => {
+    col.directory = path.dirname(col.directory);
+  },
+};
+
+// const main = async (user_input) => {
+//   let command = user_input && user_input.split(" ")[0];
+//   console.log("DEBAGING!!!!!!", user_input);
+
+//   try {
+//     // if (command === COMMAND_LIST.UP) {
+//     //   // new_directory = path.dirname(directory);
+//     // }
+
+//     // if (command === COMMAND_LIST.LS) {
+//     //   const result_list = await list(new_directory);
+//     //   console.log(result_list);
+//     // }
+
+//     // if (command === COMMAND_LIST.EXIT) {
+//     //   console.log(`Thank you for using File Manager, ${process_arguments}!`);
+//     //   rl.close();
+//     //   return;
+//     // }
+
+//     // if (command === COMMAND_LIST.CD) {
+//     //   const new_path = command.slice(3);
+//     //   new_directory = path.join(directory, new_path);
+//     //   await access(new_directory, constants.R_OK);
+//     // }
+
+//     await COMMAND_HANDLER[command](user_input, cli_config);
+//   } catch (error) {}
+
+//   const result = await question(parsDirectory(cli_config.directory));
+//   await main(result);
+// };
+
+const main = async () => {
   try {
-    console.log("answer:", answer);
-    if (answer === "up") {
-      new_directory = path.dirname(directory);
-    }
-    if (answer === "ls") {
-      const result_list = await list(new_directory);
-      console.log(result_list);
-    }
-    if (answer && answer.startsWith("cd")) {
-      const new_path = answer.slice(3);
-      new_directory = path.join(directory, new_path);
-      await access(new_directory, constants.R_OK);
-    }
-    if (answer === ".exit") {
-      console.log(`Thank you for using File Manager, ${process_arguments}!`);
-      rl.close();
-      return;
-    }
+    const user_input = await question(parsDirectory(cli_config.directory));
+    let command = user_input && user_input.split(" ")[0];
+    await COMMAND_HANDLER[command](user_input, cli_config);
   } catch (error) {
     console.log("Operation failed");
   }
-
-  const result = await question(parsDirectory(new_directory));
-  await main(result, new_directory);
+  await main2();
 };
 
 (async () => {
-  console.log(`Welcome to the File Manager, ${process_arguments.username}!`);
+  console.log(
+    `Welcome to the File Manager, ${process_arguments.username}!` + "\n"
+  );
 
   process.stdin.on("keypress", (str, key) => {
     if (key.ctrl && key.name === "c") {
