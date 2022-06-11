@@ -71,7 +71,7 @@ const main = async () => {
   } catch (error) {
     console.log("Operation failed");
   }
-  await main2();
+  await main();
 };
 
 (async () => {
