@@ -1,5 +1,6 @@
 import { readFile } from "fs/promises";
 import path from "path";
+import { TEXT_MESSAGES } from "../../const/message.js";
 
 export const cat = async (path_to_file, cli_config) => {
   const file_path = path.join(cli_config.directory, path_to_file);

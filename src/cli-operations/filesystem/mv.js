@@ -1,26 +1,19 @@
-import { writeFile } from "fs/promises";
+import { copyFile, unlink } from "fs/promises";
 import path from "path";
-import { fileURLToPath } from "url";
+import { TEXT_MESSAGES } from "../../const/message.js";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-const files_folder = path.join(__dirname, "/files");
-
-export const mv = async (user_input, cli_config) => {
+export const mv = async (command_content, cli_config) => {
   try {
-    await writeFile(
-      path.join(files_folder, "fresh.txt"),
-      "I am fresh and young",
-      {
-        flag: "wx",
-      }
+    const [file_name, path_to_new_directory] = command_content;
+
+    await copyFile(
+      path.join(cli_config.directory, file_name),
+      path.join(cli_config.directory, path_to_new_directory, file_name)
     );
 
-    //   readStream.on('close', function () {
-    //     rm(src)
-    // });
+    await unlink(path.join(cli_config.directory, file_name));
   } catch (error) {
+    console.log(error);
     throw new Error(TEXT_MESSAGES.COMMON_ERROR());
   }
 };
