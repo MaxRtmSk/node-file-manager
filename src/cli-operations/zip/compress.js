@@ -21,5 +21,3 @@ export const compress = async (user_input, cli_config) => {
     console.log(error);
   }
 };
-
-compress();

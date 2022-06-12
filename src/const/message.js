@@ -3,7 +3,7 @@ import { cli_config } from "../config.js";
 
 const process_arguments = parseProcessArgv();
 
-export const TEXT_MESSAGE = {
+export const TEXT_MESSAGES = {
   WELCOME: () =>
     `Welcome to the File Manager, ${process_arguments.username}!` + "\n",
   EXIT: () =>

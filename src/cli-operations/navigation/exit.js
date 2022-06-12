@@ -1,8 +1,8 @@
-import { TEXT_MESSAGE } from "../../const/message.js";
+import { TEXT_MESSAGES } from "../../const/message.js";
 
 export const exit = async () => {
   try {
-    console.log(TEXT_MESSAGE.EXIT());
+    console.log(TEXT_MESSAGES.EXIT());
     process.exit();
   } catch (error) {
     throw e;
