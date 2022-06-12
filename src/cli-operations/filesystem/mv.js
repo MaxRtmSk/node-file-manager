@@ -16,6 +16,10 @@ export const mv = async (user_input, cli_config) => {
         flag: "wx",
       }
     );
+
+    //   readStream.on('close', function () {
+    //     rm(src)
+    // });
   } catch (error) {
     throw new Error(TEXT_MESSAGES.COMMON_ERROR());
   }
