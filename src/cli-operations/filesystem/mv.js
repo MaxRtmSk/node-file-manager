@@ -17,6 +17,6 @@ export const mv = async (user_input, cli_config) => {
       }
     );
   } catch (error) {
-    throw new Error("FS operation failed");
+    throw new Error(TEXT_MESSAGES.COMMON_ERROR());
   }
 };

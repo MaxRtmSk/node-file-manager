@@ -18,6 +18,6 @@ export const compress = async (user_input, cli_config) => {
   try {
     await pipeline(source, gzip, destination);
   } catch (error) {
-    console.log(error);
+    throw new Error(TEXT_MESSAGES.COMMON_ERROR());
   }
 };

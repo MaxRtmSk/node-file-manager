@@ -18,6 +18,6 @@ export const decompress = async (user_input, cli_config) => {
   try {
     await pipeline(source, unzip, destination);
   } catch (error) {
-    console.log(error);
+    throw new Error(TEXT_MESSAGES.COMMON_ERROR());
   }
 };

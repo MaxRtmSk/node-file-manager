@@ -8,6 +8,7 @@ export const TEXT_MESSAGES = {
     `Welcome to the File Manager, ${process_arguments.username}!` + "\n",
   EXIT: () =>
     `Thank you for using File Manager, ${process_arguments.username}!`,
-  ERROR: () => "Operation failed",
+  COMMON_ERROR: () => "Operation failed",
   CLI_INPUT: () => `You are currently in ${cli_config.directory}` + "\n",
+  INVALID_INPUT: () => "Invalid input",
 };

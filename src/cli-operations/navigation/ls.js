@@ -5,6 +5,6 @@ export const ls = async (_, cli_config) => {
     const files = await readdir(cli_config.directory);
     console.log(files);
   } catch (error) {
-    throw e;
+    throw new Error(TEXT_MESSAGES.COMMON_ERROR());
   }
 };

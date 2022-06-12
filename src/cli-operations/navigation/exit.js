@@ -5,6 +5,6 @@ export const exit = async () => {
     console.log(TEXT_MESSAGES.EXIT());
     process.exit();
   } catch (error) {
-    throw e;
+    throw new Error(TEXT_MESSAGES.COMMON_ERROR());
   }
 };

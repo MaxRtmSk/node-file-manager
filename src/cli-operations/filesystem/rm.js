@@ -11,6 +11,6 @@ export const rm = async (user_input, cli_config) => {
   try {
     await unlink(path.join(files_folder, "fileToRemove.txt"));
   } catch (error) {
-    throw new Error("FS operation failed");
+    throw new Error(TEXT_MESSAGES.COMMON_ERROR());
   }
 };

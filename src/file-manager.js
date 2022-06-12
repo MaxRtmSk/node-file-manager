@@ -6,11 +6,15 @@ import { cli_config } from "./config.js";
 export const fileManager = async () => {
   try {
     const user_input = await question(TEXT_MESSAGES.CLI_INPUT());
-    const command = user_input.split(" ")[0];
-    await COMMAND_HANDLER[command](user_input, cli_config);
+    const [command, ...command_content] = user_input.split(" ");
+
+    if (command in COMMAND_HANDLER === false) {
+      throw new Error(TEXT_MESSAGES.INVALID_INPUT());
+    }
+
+    await COMMAND_HANDLER[command](command_content, cli_config);
   } catch (error) {
-    console.log(error);
-    console.log(TEXT_MESSAGES.ERROR());
+    console.log(error.message);
   }
   await fileManager();
 };
