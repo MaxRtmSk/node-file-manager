@@ -1,19 +1,17 @@
 import { createHash } from "crypto";
 import { readFile } from "fs/promises";
+import path from "path";
 
-export const hash = async (user_input, cli_config) => {
+export const hash = async (command_content, cli_config) => {
   try {
-    // const text = await readFile(
-    //   path.join(files_folder, "/fileToCalculateHashFor.txt"),
-    //   "utf8"
-    // );
-    console.log(user_input);
+    const path_to_file = path.join(cli_config.directory, command_content[0]);
 
-    const sha256Hasher = createHash("sha256");
+    const text = await readFile(path_to_file, "utf8");
 
-    // const hash = sha256Hasher.update(text).digest("hex");
+    const result_file_hash = createHash("sha256").update(text).digest("hex");
+
+    console.log(result_file_hash);
   } catch (error) {
-    console.log(error);
-    throw new Error("FS operation failed");
+    throw new Error(TEXT_MESSAGES.COMMON_ERROR());
   }
 };
